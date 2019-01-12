@@ -1,0 +1,10 @@
+                            BLACK HELL
+                            ÄÄÄÄÄÄÄÄÄÄ
+
+-  Si Vous avez des problŠmes avec le menu d'options en Svga ,
+  veuillez utiliser le drivers de votre carte vid‚o . Si le 
+  problŠme persiste , tapez  "BH -vga" pour lancer le jeu avec 
+  le menu option en Vga .
+
+-  Utilisez les touche "+" et "-" du pav‚ num‚rique pour acc‚l‚r‚ ou 
+  ralentir le jeu.
