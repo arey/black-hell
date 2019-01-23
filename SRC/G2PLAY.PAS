@@ -1,4 +1,4 @@
-{unitÇ du jeu black hell Ö 2 joueurs }
+{unit√© du jeu black hell √† 2 joueurs }
 UNIT G2PLAY;
 INTERFACE
 USES DOS,CRT;
@@ -106,7 +106,7 @@ CONST SkilClip : ARRAY[1..4,0..15] of BYTE =
     (0,2,6,7,11,14,23,27,29,29,27,22,16,11,9,4),
     (32,32,34,39,45,50,52,57,66,59,55,54,50,44,38,34));
 
-{ Variables rÇservÇes Ö l'XMS }
+{ Variables r√©serv√©es √† l'XMS }
 TYPE xregisters = record
                  ax,
                  bx,
@@ -173,30 +173,30 @@ IF Xms_Error <> 0 then
   BEGIN
    CASE Xms_Error OF
              $00 : Xerror:=' Pas d''erreur ';
-             $80 : Xerror:=' Fonction appelÇe inconnue ';
-             $81 : Xerror:=' Ram disk VDISK dÇtectÇ ';
+             $80 : Xerror:=' Fonction appel√©e inconnue ';
+             $81 : Xerror:=' Ram disk VDISK d√©tect√© ';
              $82 : Xerror:=' Erreur sur canal d''adresses A20 ';
-             $8E : Xerror:=' Erreur pilote Ö caractäre gÇnÇral ';
+             $8E : Xerror:=' Erreur pilote √† caract√®re g√©n√©ral ';
              $8F : Xerror:=' Erreur irratrapable ';
              $90 : Xerror:=' HMA introuvable ';
-             $91 : Xerror:=' HMA dÇjÖ appelÇe ';
+             $91 : Xerror:=' HMA d√©j√† appel√©e ';
              $92 : Xerror:=' Taille HMA insuffisante ';
-             $93 : Xerror:=' HMA non affectÇe ';
+             $93 : Xerror:=' HMA non affect√©e ';
              $94 : Xerror:=' Canal d''adresses A20 encore actif ';
-             $A0 : Xerror:=' Plus de mÇmoire Çtendue disponible ';
+             $A0 : Xerror:=' Plus de m√©moire √©tendue disponible ';
              $A1 : Xerror:=' Ts les identifs XMS sont pris ';
              $A2 : Xerror:=' Identificateur invalide ';
              $A3 : Xerror:=' Identificateur source invalide ';
-             $A4 : Xerror:=' DÇcalage source invalide ';
+             $A4 : Xerror:=' D√©calage source invalide ';
              $A5 : Xerror:=' Identificateur destination invalide ';
-             $A6 : Xerror:=' DÇcalage destination invalide ';
+             $A6 : Xerror:=' D√©calage destination invalide ';
              $A7 : Xerror:=' Longueur invalide pour fonction Move ';
              $A8 : Xerror:=' Recouvrement interdit ';
-             $A9 : Xerror:=' Erreur de paritÇ ';
-             $AA : Xerror:=' UMB n''est pas bloquÇ ';
-             $AB : Xerror:=' UMB est encore bloquÇ ';
-             $AC : Xerror:=' DÇbordement du compteur de blocage ';
-             $AD : Xerror:=' L''UMB ne peut pas àtre bloquÇ ';
+             $A9 : Xerror:=' Erreur de parit√© ';
+             $AA : Xerror:=' UMB n''est pas bloqu√© ';
+             $AB : Xerror:=' UMB est encore bloqu√© ';
+             $AC : Xerror:=' D√©bordement du compteur de blocage ';
+             $AD : Xerror:=' L''UMB ne peut pas √™tre bloqu√© ';
              $B0 : Xerror:=' Plus petit UMB disponible ';
              $B1 : Xerror:=' Plus d''UMB disponible ';
              $B2 : Xerror:=' L''adresse du segment UMB est invalide ';
@@ -205,7 +205,7 @@ IF Xms_Error <> 0 then
  END;
 END;
 PROCEDURE XMS_INIT;
-{ VÇrifie que l'XMS est installÇe }
+{ V√©rifie que l'XMS est install√©e }
 BEGIN
   XMSExists:=false;
   WITH Regs DO
@@ -214,12 +214,12 @@ BEGIN
     Intr($2F,regs);
     if Regs.al = $80 then
      Begin
-      { Copie l'adresse d'accäs au pilote XMS }
+      { Copie l'adresse d'acc√®s au pilote XMS }
       AX:=$4310;
       Intr($2F,regs);
       XMSDrv:=Ptr(ES,BX);
       XMSExists:=true;
-      { DÇtermine la taille de mÇmoire Çtendue disponible }
+      { D√©termine la taille de m√©moire √©tendue disponible }
       Xregs.AX:=$0800;
       XmsCall(XRegs);
       XMF:=Xregs.AX;
@@ -372,7 +372,7 @@ TYPE VAIS=OBJECT
        Droite,Gauche,Haut,Bas,Tir,Miss,Dead : BOOLEAN;
        AutoFire,Ntir,Invincible,Lost        : BOOLEAN;
        PuisTir,SpeedTir,App,Timer           : BYTE;
-       Las : ARRAY[1..50,0..7] Of WORD;        { Feuer,LasX,LasY,Rotat,Vit,SpÇcial,Explosions,PuisTir }
+       Las : ARRAY[1..50,0..7] Of WORD;        { Feuer,LasX,LasY,Rotat,Vit,Sp√©cial,Explosions,PuisTir }
        DbTir : ARRAY[1..50,0..7] OF WORD;
        OptVais : ARRAY[0..8] of BOOLEAN;
        Circle  : ARRAY[0..5] of INTEGER;
@@ -480,8 +480,8 @@ BEGIN
             END;
         4 : Inc(Play1.PuisTir);               { Double la puissance du Tir }
         5 : Play1.Autofire:=True;             { Autofire                   }
-        6 : Dec(Play2.Live,Random(25));       { Bombe Çclair               }
-        7 : BEGIN Play1.Invincible:=True;     { invincibilitÇ              }
+        6 : Dec(Play2.Live,Random(25));       { Bombe √©clair               }
+        7 : BEGIN Play1.Invincible:=True;     { invincibilit√©              }
             Play1.Timer:=MEM[$3E:$8D]; END;
         8 : Play1.Live:=100;                  { Trousse de soins           }
       END;
@@ -514,8 +514,8 @@ BEGIN
             END;
         4 : Inc(Play2.PuisTir);               { Double la puissance du Tir }
         5 : Play2.Autofire:=True;             { Autofire                   }
-        6 : Dec(Play1.Live,Random(25));       { Bombe Çclair               }
-        7 : BEGIN Play2.Invincible:=True;     { InvincibilitÇ              }
+        6 : Dec(Play1.Live,Random(25));       { Bombe √©clair               }
+        7 : BEGIN Play2.Invincible:=True;     { Invincibilit√©              }
             Play2.Timer:=MEM[$3E:$8D]; END;
         8 : Play2.Live:=100;                  { Trousse de soins           }
       END;
@@ -846,7 +846,7 @@ If Haut then
  If Sortie then EXIT;
  Cx:=Cx2;Cy:=Cy2;Sprite:=Sprite2;
 
- { SpÇcial Clipping }
+ { Sp√©cial Clipping }
  CASE Imat OF
    2 : BEGIN
           IF (Cy+DestClip[3,Sprite]<=0) then Cy:=-DestClip[3,Sprite]
@@ -1330,7 +1330,7 @@ Randomize;
 SpeedSync:=s shl 1;
 For i:=1 to 360 do Sinus[i]:=Trunc(Round(Sin(i*Pi/180)*1024));
 For i:=1 to 360 do Cosinus[i]:=Trunc(Round(Cos(i*Pi/180)*1024));
-Xms_init;Write('Xms initialisäe ...');
+Xms_init;Write('Xms initialis√®e ...');
 For i:=1 to 10 do Get_XMS(i,64);
 For i:=1 to 2 do New(Player[i]);
 New(Decors);New(Sp);

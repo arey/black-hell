@@ -5,8 +5,8 @@ TYPE VirtualPtr=^Virtual;
      Virtual=ARRAY[0..63999] of BYTE;
 
 VAR Player : ARRAY[1..2] of VirtualPtr;
-    Sp,Decors : VirtualPtr;              { Pointeurs repr‚sentants des ‚crans virtuels }
-    Screen  : Virtual ABSOLUTE $A000:0;  { Pointe directement sur la m‚moire vid‚o     }
+    Sp,Decors : VirtualPtr;              { Pointeurs reprÃ©sentants des Ã©crans virtuels }
+    Screen  : Virtual ABSOLUTE $A000:0;  { Pointe directement sur la mÃ©moire vidÃ©o     }
     Palette : ARRAY[0..767] of BYTE;     { Palette de 256 couleurs : 3 composantes*256 => 768 }
     i,j,u,v : INTEGER;
     f       : Text;
@@ -53,12 +53,12 @@ DecodPal(s,Palette );
 END;
 
 PROCEDURE DECOMPACT(Ne:String;Num:Word);
-{ D‚compacte les
-    - fichiers images compress‚s dont la taille est < 64000 octets
-    - fichiers images non compress‚s dont la taille = 64000 octets
+{ DÃ©compacte les
+    - fichiers images compressÃ©s dont la taille est < 64000 octets
+    - fichiers images non compressÃ©s dont la taille = 64000 octets
   Mode de compression :
     - 1 octet = nb de fois que la couleur suivante est
-     … inscrire … la suite
+     Ã  inscrire Ã  la suite
     - 1 octet = pour coder la couleur                      }
 VAR Nb,total : WORD;
     Color    : BYTE;
@@ -143,7 +143,7 @@ ASM
    INC DX
    IN AL,DX
    AND AL,0F7h
-   OR AL,4h                     { D‚sensenclenche le mode Chain 4          }
+   OR AL,4h                     { DÃ©sensenclenche le mode Chain 4          }
    OUT DX,AL
 
    DEC DX                       { Efface les 4 pages graphiques            }
@@ -162,14 +162,14 @@ ASM
    OUT DX,AL
    INC DX
    IN AL,DX
-   AND AL,0BFh                  {  bit 6 du doubleword … 0                 }
+   AND AL,0BFh                  {  bit 6 du doubleword Ã  0                 }
    OUT DX,AL
    DEC DX
    MOV AL,17h
    OUT DX,AL
    INC DX
    IN AL,DX
-   OR AL,40h                    { bit 6 … 1                                }
+   OR AL,40h                    { bit 6 Ã  1                                }
    OUT DX,AL
 
    MOV FPAGE,0;
@@ -337,7 +337,7 @@ BEGIN
 END;
 
 BEGIN
-   ASM MOV Clef,010100101b  { D‚finit la clef } END;
+   ASM MOV Clef,010100101b  { DÃ©finit la clef } END;
    For i:=1 to 2 do New(Player[i]);
    New(Decors);New(Sp);
    Fillchar(Screen,64000,0);

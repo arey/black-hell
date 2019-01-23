@@ -1,7 +1,7 @@
 {$G+}
 UNIT G1PLAY;
-{ UnitÇ reprogrammÇe pour mettre ce jeu en freeware ansi que pour
-  participer Ö un concours , amÇliorations :
+{ Unit√© reprogramm√©e pour mettre ce jeu en freeware ansi que pour
+  participer √† un concours , am√©liorations :
      - codage de la palette pour ne pas qu'on choure les images
    }
 INTERFACE
@@ -12,7 +12,7 @@ CONST LEFT   = 75;     LEFT2   = 30;
       UP     = 72;     UP2     = 17;
       DOWN   = 80;     DOWN2   = 44;
       TIR    = 28;     TIR2    = 57;
-      SHOOT  = 29;                      { Contrìle }
+      SHOOT  = 29;                      { Contr√¥le }
       TALT   = 56;
       TD     = 32;
       TI     = 23;
@@ -112,10 +112,10 @@ VAR Player1,Player2 : VirtualPtr;
     ColExpl : ARRAY[0..3] OF WORD; { Existe,cX,cY,Sprite }
     Sinus,Cosinus : ARRAY[1..360] of LONGINT;
     TotalLignes : WORD;
-    Clef : Byte; { Clef pour le dÇcodage de la palette }
+    Clef : Byte; { Clef pour le d√©codage de la palette }
     SpeedSync : Longint;
 
-{ Variables rÇservÇes Ö l'XMS }
+{ Variables r√©serv√©es √† l'XMS }
 TYPE xregisters = record
                  ax,
                  bx,
@@ -141,7 +141,7 @@ VAR  XMSDrv     : POINTER;
      Xms_Error  : BYTE;
      Xerror : STRING;
 
-PROCEDURE Jeu_1_joueur(s : integer); { Seule procÇdure lanáable }
+PROCEDURE Jeu_1_joueur(s : integer); { Seule proc√©dure lan√ßable }
 
 IMPLEMENTATION
 
@@ -184,30 +184,30 @@ IF Xms_Error <> 0 then
   BEGIN
    CASE Xms_Error OF
              $00 : Xerror:=' Pas d''erreur ';
-             $80 : Xerror:=' Fonction appelÇe inconnue ';
-             $81 : Xerror:=' Ram disk VDISK dÇtectÇ ';
+             $80 : Xerror:=' Fonction appel√©e inconnue ';
+             $81 : Xerror:=' Ram disk VDISK d√©tect√© ';
              $82 : Xerror:=' Erreur sur canal d''adresses A20 ';
-             $8E : Xerror:=' Erreur pilote Ö caractäre gÇnÇral ';
+             $8E : Xerror:=' Erreur pilote √† caract√®re g√©n√©ral ';
              $8F : Xerror:=' Erreur irratrapable ';
              $90 : Xerror:=' HMA introuvable ';
-             $91 : Xerror:=' HMA dÇjÖ appelÇe ';
+             $91 : Xerror:=' HMA d√©j√† appel√©e ';
              $92 : Xerror:=' Taille HMA insuffisante ';
-             $93 : Xerror:=' HMA non affectÇe ';
+             $93 : Xerror:=' HMA non affect√©e ';
              $94 : Xerror:=' Canal d''adresses A20 encore actif ';
-             $A0 : Xerror:=' Plus de mÇmoire Çtendue disponible ';
+             $A0 : Xerror:=' Plus de m√©moire √©tendue disponible ';
              $A1 : Xerror:=' Ts les identifs XMS sont pris ';
              $A2 : Xerror:=' Identificateur invalide ';
              $A3 : Xerror:=' Identificateur source invalide ';
-             $A4 : Xerror:=' DÇcalage source invalide ';
+             $A4 : Xerror:=' D√©calage source invalide ';
              $A5 : Xerror:=' Identificateur destination invalide ';
-             $A6 : Xerror:=' DÇcalage destination invalide ';
+             $A6 : Xerror:=' D√©calage destination invalide ';
              $A7 : Xerror:=' Longueur invalide pour fonction Move ';
              $A8 : Xerror:=' Recouvrement interdit ';
-             $A9 : Xerror:=' Erreur de paritÇ ';
-             $AA : Xerror:=' UMB n''est pas bloquÇ ';
-             $AB : Xerror:=' UMB est encore bloquÇ ';
-             $AC : Xerror:=' DÇbordement du compteur de blocage ';
-             $AD : Xerror:=' L''UMB ne peut pas àtre bloquÇ ';
+             $A9 : Xerror:=' Erreur de parit√© ';
+             $AA : Xerror:=' UMB n''est pas bloqu√© ';
+             $AB : Xerror:=' UMB est encore bloqu√© ';
+             $AC : Xerror:=' D√©bordement du compteur de blocage ';
+             $AD : Xerror:=' L''UMB ne peut pas √™tre bloqu√© ';
              $B0 : Xerror:=' Plus petit UMB disponible ';
              $B1 : Xerror:=' Plus d''UMB disponible ';
              $B2 : Xerror:=' L''adresse du segment UMB est invalide ';
@@ -216,7 +216,7 @@ IF Xms_Error <> 0 then
  END;
 END;
 PROCEDURE XMS_INIT;
-{ VÇrifie que l'XMS est installÇe }
+{ V√©rifie que l'XMS est install√©e }
 BEGIN
   XMSExists:=false;
   WITH Regs DO
@@ -225,12 +225,12 @@ BEGIN
     Intr($2F,regs);
     if Regs.al = $80 then
      Begin
-      { Copie l'adresse d'accäs au pilote XMS }
+      { Copie l'adresse d'acc√®s au pilote XMS }
       AX:=$4310;
       Intr($2F,regs);
       XMSDrv:=Ptr(ES,BX);
       XMSExists:=true;
-      { DÇtermine la taille de mÇmoire Çtendue disponible }
+      { D√©termine la taille de m√©moire √©tendue disponible }
       Xregs.AX:=$0800;
       XmsCall(XRegs);
       XMF:=Xregs.AX;
@@ -291,8 +291,8 @@ END;
 
 VAR Fpage : WORD;
 
-Type SpriteTyp=Record  { structure d'un bloc de donnÇes dÇcrivant un sprite}
-  Adr:Pointer;         { pointe sur les donnÇes graphiques }
+Type SpriteTyp=Record  { structure d'un bloc de donn√©es d√©crivant un sprite}
+  Adr:Pointer;         { pointe sur les donn√©es graphiques }
   dtx,dty:Word;        { largeur et hauteur en pixels }
   px,py,               { position courante, facultatif *}
   sx,sy:Integer;       { vitesse courante, facultatif *}
@@ -350,7 +350,7 @@ ASM
    INC DX
    IN AL,DX
    AND AL,0F7h
-   OR AL,4h                     { DÇsensenclenche le mode Chain 4          }
+   OR AL,4h                     { D√©sensenclenche le mode Chain 4          }
    OUT DX,AL
 
    DEC DX                       { Efface les 4 pages graphiques            }
@@ -369,14 +369,14 @@ ASM
    OUT DX,AL
    INC DX
    IN AL,DX
-   AND AL,0BFh                  {  bit 6 du doubleword Ö 0                 }
+   AND AL,0BFh                  {  bit 6 du doubleword √† 0                 }
    OUT DX,AL
    DEC DX
    MOV AL,17h
    OUT DX,AL
    INC DX
    IN AL,DX
-   OR AL,40h                    { bit 6 Ö 1                                }
+   OR AL,40h                    { bit 6 √† 1                                }
    OUT DX,AL
 
    MOV FPAGE,0;
@@ -474,9 +474,9 @@ begin
   ajout:=0;
   if ( abs(x2-x1) < abs(y2-y1) ) then     {Parcours : par axe X ou Y ? }
     begin                                            { par l'axe des Y }
-      if ( y1 > y2 ) then                         { y1 supÇrieur Ö y2? }
+      if ( y1 > y2 ) then                         { y1 sup√©rieur √† y2? }
         begin
-      SwapInt( x1, x2 );                      { Oui, Çchange X1 et X2, }
+      SwapInt( x1, x2 );                      { Oui, √©change X1 et X2, }
       SwapInt( y1, y2 );                                    { Y1 et Y2 }
         end;
 
@@ -508,7 +508,7 @@ begin
     begin
       if ( x1 > x2 ) then                      { x1 plus grand que x2? }
         begin
-      SwapInt( x1, x2 );                       { Oui, Çchange X1 et X2 }
+      SwapInt( x1, x2 );                       { Oui, √©change X1 et X2 }
       SwapInt( y1, y2 );                                    { Y1 et Y2 }
         end;
 
@@ -745,18 +745,18 @@ PROCEDURE COPY_BLOCK(destination,source,largeur,hauteur:word);ASSEMBLER;
 VAR interligne:word;
 ASM
   mov dx,3ceh                   { GDC                                      }
-  mov ax,4105h                  { Mode de lecture 0, Mode d'Çcriture 1     }
-  out dx,ax                     { Çmis sur le registre 5 : GDC Mode        }
+  mov ax,4105h                  { Mode de lecture 0, Mode d'√©criture 1     }
+  out dx,ax                     { √©mis sur le registre 5 : GDC Mode        }
   mov dx,3c4h                   { TS                                       }
   mov ax,0f02h                  { active tous les plans                    }
-  out dx,ax                     { Çmis sur le registre 2 : Write Plane Mask}
+  out dx,ax                     { √©mis sur le registre 2 : Write Plane Mask}
 
   push ds
-  mov ax,0a000h                 { copier Ö l'intÇrieur de VGA              }
-  mov es,ax                     { -> les deux segments Ö 0a000h            }
+  mov ax,0a000h                 { copier √† l'int√©rieur de VGA              }
+  mov es,ax                     { -> les deux segments √† 0a000h            }
   mov ds,ax
-  mov si,source                 { donnÇes d'origine                        }
-  mov di,destination            { copiÇe en destination                    }
+  mov si,source                 { donn√©es d'origine                        }
+  mov di,destination            { copi√©e en destination                    }
   mov dx,hauteur                { copie "hauteur" ligne                    }
 
   mov ax,80                     { calcul l'intervalle entre deux lignes    }
@@ -779,13 +779,13 @@ ASM
    MOV AX,0A000h                { charge le segment                        }
    MOV ES,AX
    MOV CX,x                     { Comme x mod 4 en Pascal                  }
-   AND CX,3                     { DÇtermine le plan d'Çcriture             }
+   AND CX,3                     { D√©termine le plan d'√©criture             }
    MOV AX,1
    SHL AX,CL
    MOV AH,AL
    MOV DX,03C4h                 { Registre 2 du TS                         }
    MOV AL,2
-   OUT DX,AX                    { DÇtermine le plan de bit                 }
+   OUT DX,AX                    { D√©termine le plan de bit                 }
 
    MOV AX,80
    MUL y
@@ -929,27 +929,27 @@ ASM
 END;
 
 Procedure GetSprite(Ofs,dtx,dty:Word;var dSprite:SpriteTyp;Num : BYTE);
-Var ppp:Array[0..3] of Byte; {table avec le nombre de pixels Ö copier par plan }
-    Skip:word;               {nombre d'octets Ö sauter}
-    Plane_Count:Word;        {nombre de plans dÇjÖ copiÇs }
+Var ppp:Array[0..3] of Byte; {table avec le nombre de pixels √† copier par plan }
+    Skip:word;               {nombre d'octets √† sauter}
+    Plane_Count:Word;        {nombre de plans d√©j√† copi√©s }
 Begin
   If DSprite.Deb<>0 then Freemem(dSprite.adr,Dsprite.deb);
   Dsprite.Deb:=Dtx*Dty;
-  GetMem(dSprite.adr,Dsprite.Deb); {alloue de la mÇmoire }
+  GetMem(dSprite.adr,Dsprite.Deb); {alloue de la m√©moire }
   dSprite.dtx:=dtx;            {prend note de la largeur et de la hauteur }
   dSprite.dty:=dty;            {dans l'enregistrement du sprite }
 
   i:=dtx shr 2;                {nombre de groupes de 4 octets}
-  ppp[0]:=i;ppp[1]:=i;         {correspond au nombre minimum d'octets Ö copier }
+  ppp[0]:=i;ppp[1]:=i;         {correspond au nombre minimum d'octets √† copier }
   ppp[2]:=i;ppp[3]:=i;
-  For i:=1 to dtx and 3 do   {mÇmorise en ppp les pixels restants  }
-    Inc(ppp[(i-1) and 3]);   {ajoute les pixels en commenáant par le plan de dÇbut}
+  For i:=1 to dtx and 3 do   {m√©morise en ppp les pixels restants  }
+    Inc(ppp[(i-1) and 3]);   {ajoute les pixels en commen√ßant par le plan de d√©but}
   Plane_Count:=4;            {copie 4 plans }
 asm
   push ds
-  mov di,word ptr dSprite  {charge d'abord un pointeur sur le bloc de donnÇes}
-  les di,[di]              {es:di va pointer sur les donnÇes graphiques}
-  lea bx,ppp               {bx rÇfÇrence le tableau ppp}
+  mov di,word ptr dSprite  {charge d'abord un pointeur sur le bloc de donn√©es}
+  les di,[di]              {es:di va pointer sur les donn√©es graphiques}
+  lea bx,ppp               {bx r√©f√©rence le tableau ppp}
 
   Cmp  Num,1
   Jnz @Else1
@@ -966,33 +966,33 @@ asm
  @EndIf1:
 
 
-        {charge un pointeur sur l'Çcran}
-   add Ofs,si         {ajoute l'offset des donnÇes du sprite proprement dites}
+        {charge un pointeur sur l'√©cran}
+   add Ofs,si         {ajoute l'offset des donn√©es du sprite proprement dites}
 @lcopy_plane:         {boucle des plans}
-  mov si,ofs          {si reáoit l'adresse de dÇbut des donnÇes du sprite }
-  mov dx,dty          {le compteur d'ordonnÇes reáoit le nombre de lignes}
+  mov si,ofs          {si re√ßoit l'adresse de d√©but des donn√©es du sprite }
+  mov dx,dty          {le compteur d'ordonn√©es re√ßoit le nombre de lignes}
 
   xor ah,ah           {efface ah}
-  mov al,ss:[bx]      {charge en al l'ÇlÇment courant de ppp}
-  shl ax,2            {on dÇplace des groupes de 4 octets}
-  sub ax,320          {calcule la diffÇrence par rapport Ö 320}
+  mov al,ss:[bx]      {charge en al l'√©l√©ment courant de ppp}
+  shl ax,2            {on d√©place des groupes de 4 octets}
+  sub ax,320          {calcule la diff√©rence par rapport √† 320}
   neg ax              {convertit ax-320 en 320-ax }
-  mov skip,ax         {sauvegarde le rÇsultat en Skip }
+  mov skip,ax         {sauvegarde le r√©sultat en Skip }
 
 @lcopy_y:             {boucle des lignes }
   mov cl,ss:[bx]      {tire la largeur du tableau ppp }
 @lcopy_x:             {boucle des pixels }
   movsb               {copie un octet }
-  add si,3            {point suivant dans le màme plan }
+  add si,3            {point suivant dans le m√™me plan }
   dec cl              {copie tous les points de la ligne }
   jne @lcopy_x
 
-  add si,skip         {passe Ö la ligne suivante }
+  add si,skip         {passe √† la ligne suivante }
   dec dx              {copie toutes les lignes }
   jne @lcopy_y
 
-  inc bx              {pointe sur l'ÇlÇment suivant de ppp }
-  inc ofs             {se positionne sur le nouveau dÇbut de plan }
+  inc bx              {pointe sur l'√©l√©ment suivant de ppp }
+  inc ofs             {se positionne sur le nouveau d√©but de plan }
   dec plane_count     {copie tous les plans }
   jne @lcopy_plane
 
@@ -1001,15 +1001,15 @@ End;
 End;
 
 Procedure PutSprite(pg_ofs,x,y:Integer;sSprite:spritetyp);
-var plane_count,              {nombre de plans dÇjÖ copiÇs }
+var plane_count,              {nombre de plans d√©j√† copi√©s }
     masqueplan:Byte;          {masque Write-Plane dans le registre 2 du TS }
-    Skip,                     {nombre d'octets Ö sauter }
-    ofs,                      {offset courant dans la mÇmoire d'Çcran }
-    plane,                    {numÇro du plan courant }
-    Largeur,                  {largeur en octets Ö copier dans une ligne }
+    Skip,                     {nombre d'octets √† sauter }
+    ofs,                      {offset courant dans la m√©moire d'√©cran }
+    plane,                    {num√©ro du plan courant }
+    Largeur,                  {largeur en octets √† copier dans une ligne }
     dty:Word;                 {hauteur }
-    source:Pointer;     {pointe sur les donnÇes graphiques lorsque ds varie }
-    clip_lt, clip_rt:integer; {nombre de pixels restant Ö droite et Ö gauche }
+    source:Pointer;     {pointe sur les donn√©es graphiques lorsque ds varie }
+    clip_lt, clip_rt:integer; {nombre de pixels restant √† droite et √† gauche }
     clipact_lt,               {nombre d'octets restants }
     clipact_rt,               {pour le plan courant }
     clip_dn,clip_up:Word;     {nombre de lignes restant en haut et en bas }
@@ -1019,11 +1019,11 @@ var plane_count,              {nombre de plans dÇjÖ copiÇs }
 
 Begin
   if (x > 319) or               {pas de dessin }
-  (x+sSprite.dtx < 0) or        {sprite en dehors de l'Çcran ?}
+  (x+sSprite.dtx < 0) or        {sprite en dehors de l'√©cran ?}
   (y > 199) or
   (y+sSprite.dty < 0) then exit;
   clip_rt:=0;                   {normalement pas de clipping }
-  clip_lt:=0;                   {-> toutes les variables de clipping Ö 0 }
+  clip_lt:=0;                   {-> toutes les variables de clipping √† 0 }
   clip_dn:=0;
   clip_up:=0;
   clipact_rt:=0;
@@ -1031,45 +1031,45 @@ Begin
    with sSprite do begin
     if y+dty > 200 then begin  {premier cas de clipping : en bas}
       clip_dn:=(y+dty-200);    {nombre de lignes restantes }
-      dty:=200-y;              {rÇduit la hauteur du sprite }
+      dty:=200-y;              {r√©duit la hauteur du sprite }
     End;
-    if y<0 then begin          {deuxiäme cas de clipping: en haut}
+    if y<0 then begin          {deuxi√®me cas de clipping: en haut}
       clip_up:=-y;             {nombre de lignes restantes }
-      dty:=dty+y;              {rÇduit la hauteur du spr }
-      y:=0;          {ordonnÇe de dÇpart nulle, au bord supÇrieur de l'Çcran }
+      dty:=dty+y;              {r√©duit la hauteur du spr }
+      y:=0;          {ordonn√©e de d√©part nulle, au bord sup√©rieur de l'√©cran }
     End;
-    if x+dtx > 320 then begin   {troisiäme cas de clipping : Ö droite }
+    if x+dtx > 320 then begin   {troisi√®me cas de clipping : √† droite }
       clip_rt:=x+dtx-320;       {pixels restants }
-      dtx:=320-x;               {rÇduit la largeur }
+      dtx:=320-x;               {r√©duit la largeur }
     End;
-    if x<0 then begin           {quatriäme cas de clipping : Ö gauche }
+    if x<0 then begin           {quatri√®me cas de clipping : √† gauche }
       clip_lt:=-x;              { nombre de pixels restants }
-      plane:=4-(clip_lt mod 4); {nouveau plan de dÇbut pour la colonne 0 }
-      plane:=plane and 3;       {ramäne Ö l'intervalle 0..3 }
+      plane:=4-(clip_lt mod 4); {nouveau plan de d√©but pour la colonne 0 }
+      plane:=plane and 3;       {ram√®ne √† l'intervalle 0..3 }
       ofs:=pg_ofs+80*y+((x+1) div 4) - 1;  {Ofs sur groupe de 4 octets }
-      x:=0;                                {colonne de dÇbut }
-    End Else Begin                         {Ö droite pas de clipping?}
+      x:=0;                                {colonne de d√©but }
+    End Else Begin                         {√† droite pas de clipping?}
       plane:=x mod 4;                    {alors calcul conventionnel du plan }
       ofs:=pg_ofs+80*y+(x div 4);        {et de l'offset }
     End;
   End;
-  Source:=sSprite.adr;         {mÇmorise pointeur sur les donnÇes graphiques }
+  Source:=sSprite.adr;         {m√©morise pointeur sur les donn√©es graphiques }
   dty:=sSprite.dty;            {et hauteur dans variables locales }
   Largeur:=0;                  {initialise largeur et Skip }
   Skip:=0;
 
   i:=sSprite.dtx shr 2;      {nombre de groupes de 4 octets complets}
-  ppp[0]:=i;ppp[1]:=i;       {correspond au nombre minimum d'octets Ö copier }
+  ppp[0]:=i;ppp[1]:=i;       {correspond au nombre minimum d'octets √† copier }
   ppp[2]:=i;ppp[3]:=i;
-  For i:=1 to sSprite.dtx and 3 do{mÇmorise en ppp les pixels restants }
-    Inc(ppp[(plane+i - 1) and 3]);{ajoute les pixels en commenáant par le plan de dÇbut }
+  For i:=1 to sSprite.dtx and 3 do{m√©morise en ppp les pixels restants }
+    Inc(ppp[(plane+i - 1) and 3]);{ajoute les pixels en commen√ßant par le plan de d√©but }
 
   i:=(clip_lt+clip_rt) shr 2;
-  cpp[0]:=i;cpp[1]:=i;          {valeurs par dÇfaut du clipping}
+  cpp[0]:=i;cpp[1]:=i;          {valeurs par d√©faut du clipping}
   cpp[2]:=i;cpp[3]:=i;
-  For i:=1 to clip_rt and 3 do  {si clipping Ö droite }
+  For i:=1 to clip_rt and 3 do  {si clipping √† droite }
     Inc(cpp[i-1]);              {enregistre le nombre dans les plans }
-  For i:=1 to clip_lt and 3 do  {si clipping Ö gauche }
+  For i:=1 to clip_lt and 3 do  {si clipping √† gauche }
     Inc(cpp[4-i]);              {enregistre le nombre dans les plans }
 
 asm
@@ -1080,51 +1080,51 @@ asm
   mov ax,0a000h                 {charge le segment de destination (VGA) }
   mov es,ax
 
-  lds si,source       {ds:si va pointer sur la source (donnÇes graphiques ) }
-  mov cx,plane        {masque de plan de dÇpart }
-  mov ax,1            {dÇcale le bit 0 vers la gauche }
+  lds si,source       {ds:si va pointer sur la source (donn√©es graphiques ) }
+  mov cx,plane        {masque de plan de d√©part }
+  mov ax,1            {d√©cale le bit 0 vers la gauche }
   shl ax,cl
   mov masqueplan,al           {sauve le masque }
-  shl al,4                    {le reporte dans le quartet supÇrieur }
+  shl al,4                    {le reporte dans le quartet sup√©rieur }
   or masqueplan,al
-  mov plane_count,4          {4 plans Ö copier }
+  mov plane_count,4          {4 plans √† copier }
 @lplane:                     {boucle des plans }
   mov cl,byte ptr plane      {charge le plan courant }
   mov di,cx                  {en di}
   mov cl,byte ptr ppp[di]    {charge le nombre ppp corrrespondant en cx }
   mov byte ptr Largeur,cl    {recalcule Skip }
-  mov ax,80                  {forme la diffÇrence 80-largeur }
+  mov ax,80                  {forme la diff√©rence 80-largeur }
   sub al,cl
   mov byte ptr skip,al       {et la reporte dans skip }
 
-  mov al,byte ptr cpp[di] {charge la largeur de clipping spÇcifique au plan }
-  cmp clip_lt,0           {si pas de clipping Ö gauche, voyons Ö droite }
+  mov al,byte ptr cpp[di] {charge la largeur de clipping sp√©cifique au plan }
+  cmp clip_lt,0           {si pas de clipping √† gauche, voyons √† droite }
   je @adroite
-{sauve en clip_act_lt clip. plan + spÇcif.}
+{sauve en clip_act_lt clip. plan + sp√©cif.}
   mov clipact_lt,ax
-  sub Largeur,ax          {rÇduit le nombre d'octets Ö copier }
-  jmp @clip_rdy           {Ö droite pas de clipping}
-@adroite:                 {si pas de clipping Ö gauche }
+  sub Largeur,ax          {r√©duit le nombre d'octets √† copier }
+  jmp @clip_rdy           {√† droite pas de clipping}
+@adroite:                 {si pas de clipping √† gauche }
   mov clipact_rt,ax       {clipping pour tous les plans en clip_act}
 @clip_rdy:
   mov ax,Largeur          {calcule la largeur totale en octets }
   add ax,clipact_rt
   add ax,clipact_lt
-  mul clip_up      {multiplie par le nombre de lignes du clipping supÇrieur }
-  add si,ax        {octets non reprÇsentÇs }
+  mul clip_up      {multiplie par le nombre de lignes du clipping sup√©rieur }
+  add si,ax        {octets non repr√©sent√©s }
   mov cx,Largeur   {charge la largeur en cx }
-  or cl,cl         {largeur 0, plan terminÇ }
+  or cl,cl         {largeur 0, plan termin√© }
   je @planfini
 
-  mov di,ofs            {offset de destination dans l'Çcran en di}
-  mov ah,masqueplan     {rÇduit le masque de plan aux bits [0..3] }
+  mov di,ofs            {offset de destination dans l'√©cran en di}
+  mov ah,masqueplan     {r√©duit le masque de plan aux bits [0..3] }
   and ah,0fh
   mov al,02h            {active le registre 2 du TS (Write Plane Mask)}
   mov dx,3c4h
   out dx,ax
   mov bx,dty                 {initialise le compteur de lignes y }
 @lcopy_y:                    {boucle des lignes y }
-  add si,clipact_lt          {pointeur source au-delÖ clipping gauche }
+  add si,clipact_lt          {pointeur source au-del√† clipping gauche }
   add di,clipact_lt          {idem pour le pointeur de destination }
 @lcopy:                      {boucle des pixels }
   lodsb                      {lit un octet }
@@ -1134,12 +1134,12 @@ asm
 @entry:
   loop @lcopy                {suite de la boucle }
 
-  add si,clipact_rt          {apräs ligne compläte, clipping droit }
+  add si,clipact_rt          {apr√®s ligne compl√®te, clipping droit }
 
-  dec bx                     {incrÇmente le compteur de lignes }
+  dec bx                     {incr√©mente le compteur de lignes }
   je @planfini               {compteur de lignes  = 0, plan suivant }
-  add di,skip                {sinon passe en dÇbut de ligne suivante }
-  mov cx,Largeur             {rÇinitialise le compteur de colonnes }
+  add di,skip                {sinon passe en d√©but de ligne suivante }
+  mov cx,Largeur             {r√©initialise le compteur de colonnes }
   jmp @lcopy_y               {retourne dans la boucle des lignes }
 @valeur0:                    {couleur du sprite 0 }
   inc di                     {saute l'octet de destination }
@@ -1149,77 +1149,77 @@ asm
   add ax,clipact_rt
   add ax,clipact_lt
   mul clip_dn            {multiplie par le nombre de lignes du clipping inf. }
-  add si,ax              {octets non rÇprÇsentÇs }
+  add si,ax              {octets non r√©pr√©sent√©s }
   rol masqueplan,1       {masque le plan suivant }
-  mov cl,masqueplan      {a-t-on sÇlectionnÇ le plan 0 ?}
-  and cx,1               {(bit 1 Ö 1), alors}
-  add ofs,cx             {incrÇmente de 1 l'offset de destination (cx bit 1 !)}
-  inc plane              {incrÇmente le numÇro de plan (indice dans ppp) }
-  and plane,3            {rÇduit de 0 Ö 3 }
-  dec plane_count        {dÇjÖ 4 plans copiÇs, on arràte }
+  mov cl,masqueplan      {a-t-on s√©lectionn√© le plan 0 ?}
+  and cx,1               {(bit 1 √† 1), alors}
+  add ofs,cx             {incr√©mente de 1 l'offset de destination (cx bit 1 !)}
+  inc plane              {incr√©mente le num√©ro de plan (indice dans ppp) }
+  and plane,3            {r√©duit de 0 √† 3 }
+  dec plane_count        {d√©j√† 4 plans copi√©s, on arr√™te }
   jne @lplane
   pop ds                 {restaure ds, ciao}
 End;                     {asm}
 End;
 
 Procedure PutSpriteSC(pg_ofs,x,y:Integer;sSprite:spritetyp);
-var planecount,          {nombre de plans dÇjÖ copiÇs }
+var planecount,          {nombre de plans d√©j√† copi√©s }
     masqueplan:Byte;     {masque le plan Write dans le registre 2 du TS }
-    Skip,                {nombre d'octets Ö sauter }
-    ofs,                 {offset courant dans la mÇmoire d'Çcran }
-    plane,               {numÇro du plan courant }
-    Largeur,             {largeur en nombre d'octets Ö copier dans une ligne }
+    Skip,                {nombre d'octets √† sauter }
+    ofs,                 {offset courant dans la m√©moire d'√©cran }
+    plane,               {num√©ro du plan courant }
+    Largeur,             {largeur en nombre d'octets √† copier dans une ligne }
     dty:Word;            {hauteur }
-    source:Pointer;      {pointe sur les donnÇes graphiques quand ds varie}
+    source:Pointer;      {pointe sur les donn√©es graphiques quand ds varie}
 
     ppp:Array[0..3] of Byte;    {nombre de pixels par plan }
-    i:Word;                     {compteur d'itÇrations local }
+    i:Word;                     {compteur d'it√©rations local }
 
 Begin
   {if (x + sSprite.dtx > 324)
   or (x <-5)
   or (y + sSprite.dty > 203) or (y < -5) then exit;}
                                      {fixe la direction }
-  Source:=sSprite.adr;               {pointe sur les donnÇes graphiques }
+  Source:=sSprite.adr;               {pointe sur les donn√©es graphiques }
   dty:=sSprite.dty;                  {charge la hauteur en local }
    plane:=x mod 4;                   {plan et }
-  ofs:=pg_ofs+80*y+(x div 4);        {offset de dÇbut }
+  ofs:=pg_ofs+80*y+(x div 4);        {offset de d√©but }
   Largeur:=0;                        {initialise la largeur et le saut }
   Skip:=0;
 
   i:=sSprite.dtx shr 2;              {nombre de groupes de 4 octets complets}
-  ppp[0]:=i;ppp[1]:=i;               {nombre minimum d'octets Ö copier }
+  ppp[0]:=i;ppp[1]:=i;               {nombre minimum d'octets √† copier }
   ppp[2]:=i;ppp[3]:=i;
-  For i:=1 to sSprite.dtx and 3 do{mÇmorise en ppp les pixels restants }
-    Inc(ppp[(plane+i - 1) and 3]);{ajoute les pixels en commenáant par le plan de dÇbut }
+  For i:=1 to sSprite.dtx and 3 do{m√©morise en ppp les pixels restants }
+    Inc(ppp[(plane+i - 1) and 3]);{ajoute les pixels en commen√ßant par le plan de d√©but }
 asm
   push ds                       {sauve ds}
   mov ax,0a000h                 {charge le segment de destination (VGA)}
   mov es,ax
 
-  lds si,source         {ds:di va pointer sur la source (donnÇes graphiques) }
-  mov cx,plane          {crÇe le masque de plan de dÇbut }
-  mov ax,1              {dÇcale le bit 0 vers la gauche }
+  lds si,source         {ds:di va pointer sur la source (donn√©es graphiques) }
+  mov cx,plane          {cr√©e le masque de plan de d√©but }
+  mov ax,1              {d√©cale le bit 0 vers la gauche }
   shl ax,cl
   mov masqueplan,al     {sauve le masque }
-  shl al,4              {le recopie dans le quartet supÇrieur }
+  shl al,4              {le recopie dans le quartet sup√©rieur }
   or masqueplan,al
-  mov planecount,4          {4 plans Ö copier }
+  mov planecount,4          {4 plans √† copier }
 @lplane:                    {boucle des plans }
   mov cl,byte ptr plane     {charge le plan courant }
   mov di,cx                 {en di}
   mov cl,byte ptr ppp[di]   {charge le nombre ppp correspondant en cx }
   mov byte ptr Largeur,cl   {recalcule skip }
-  mov ax,80                 {forme la diffÇrence direction-largeur }
+  mov ax,80                 {forme la diff√©rence direction-largeur }
   sub ax,cx
-  mov skip,ax               {et Çcrit le rÇsultat dans skip }
+  mov skip,ax               {et √©crit le r√©sultat dans skip }
 
   mov cx,Largeur            {charge la largeur en cx }
-  or cl,cl                  {largeur 0, plan terminÇ }
+  or cl,cl                  {largeur 0, plan termin√© }
   je @planfini
 
-  mov di,ofs   {charge en di l'offset de destination dans la mÇmoire d'Çcran }
-  mov ah,masqueplan      {rÇduit le masque de plan aux bits [0..3] }
+  mov di,ofs   {charge en di l'offset de destination dans la m√©moire d'√©cran }
+  mov ah,masqueplan      {r√©duit le masque de plan aux bits [0..3] }
   and ah,0fh
   mov al,02h             {active le registre 2 du TS (Write Plane Mask)}
   mov dx,3c4h
@@ -1234,10 +1234,10 @@ asm
 @entry:
   loop @lcopy_x          {suite de la boucle }
 
-  dec bx                        {suite du dÇcomptage de lignes }
+  dec bx                        {suite du d√©comptage de lignes }
   je @planfini                  {compteur = 0, alors plan suivant }
-  add di,skip                   {sinon saute au dÇbut de ligne suivant }
-  mov cx,Largeur                {rÇinitialise le compteur de colonnes }
+  add di,skip                   {sinon saute au d√©but de ligne suivant }
+  mov cx,Largeur                {r√©initialise le compteur de colonnes }
   jmp @lcopy_y                  {retourne dans la boucle des lignes }
 @valeur0:                       {couleur du sprite 0 }
   inc di                        {saute l'octet de destination }
@@ -1245,12 +1245,12 @@ asm
 @planfini:                      {fin de la boucle des lignes }
 
   rol masqueplan,1              {masque le plan suivant }
-  mov cl,masqueplan             {plan 0 sÇlectionnÇ ?}
-  and cx,1                      {(bit 1 Ö 1), alors}
-  add ofs,cx              {incrÇmente de 1 l'offset de destination (bit 1 !)}
-  inc plane               {incrÇmente le numÇro de plan (indice dans ppp) }
-  and plane,3             {rÇduit de 0 Ö 3 }
-  dec planecount          {dÇjÖ 4 plans copiÇs, on arràte }
+  mov cl,masqueplan             {plan 0 s√©lectionn√© ?}
+  and cx,1                      {(bit 1 √† 1), alors}
+  add ofs,cx              {incr√©mente de 1 l'offset de destination (bit 1 !)}
+  inc plane               {incr√©mente le num√©ro de plan (indice dans ppp) }
+  and plane,3             {r√©duit de 0 √† 3 }
+  dec planecount          {d√©j√† 4 plans copi√©s, on arr√™te }
   jne @lplane
   pop ds                  {restaure ds, ciao }
 End;                      {asm}
@@ -1423,7 +1423,7 @@ BEGIN
            Aliens[v].Live:=Niv1_alien[6,u];
            Aliens[v].TypMis:=Niv1_Alien[4,u];
            Aliens[v].Trajet:=0;
-           Aliens[v].Bobo:=4;    { DÇgats aux colisions suivant les vaisseaux }
+           Aliens[v].Bobo:=4;    { D√©gats aux colisions suivant les vaisseaux }
            Aliens[v].Plus:=0;
            Case Aliens[v].typ Of
             1,2 : BEGIN Aliens[v].Spd:=2;n:=0;
@@ -1612,7 +1612,7 @@ Inc(m);
         begin
          Canon[m].Exist:=True;
          Canon[m].Typ:=2;Canon[m].TirX:=Aliens[u].Ax+1;
-         Canon[m].TirY:=Aliens[u].Ay+35;Canon[m].Depla:=5; { TÇlÇguidÇ }
+         Canon[m].TirY:=Aliens[u].Ay+35;Canon[m].Depla:=5; { T√©l√©guid√© }
          Canon[m].Speed:=8;
          Canon[m].WhereSpr:=11;
          Canon[m].Puissance:=1;
@@ -1625,7 +1625,7 @@ Inc(m);
      2 : begin
          Canon[m].Exist:=True;
          Canon[m].Typ:=2;Canon[m].TirX:=Aliens[u].Ax+105;
-         Canon[m].TirY:=Aliens[u].Ay+35;Canon[m].Depla:=5; { TÇlÇguidÇ }
+         Canon[m].TirY:=Aliens[u].Ay+35;Canon[m].Depla:=5; { T√©l√©guid√© }
          Canon[m].Speed:=8;
          Canon[m].WhereSpr:=11;
          Canon[m].Puissance:=1;
@@ -1690,16 +1690,16 @@ BEGIN
          If (abs(Aliens[u].Typ)<>999) then Aliens[u].typ:=0
          Else If Aliens[u].Typ=999 then begin Aliens[u].Typ:=-999;Aliens[u].PlusEnd:=0; end;
 
-      { DÇplacement }
+      { D√©placement }
       CASE Aliens[u].Depla OF
 
-        {  Depla 1 : ≥ }
+        {  Depla 1 : ‚îÇ }
         1 : BEGIN Inc(Aliens[u].ay,Aliens[u].Spd);If Aliens[u].ay>220 then Aliens[u].Typ:=0;
                   Inc(Aliens[u].trajet,Aliens[u].Spd); END;
 
-        { Depla 2 : ≥
+        { Depla 2 : ‚îÇ
                      \
-                      ≥   }
+                      ‚îÇ   }
         2 : BEGIN
               If Aliens[u].ay>220 then Aliens[u].Typ:=0;
               IF (Aliens[u].Trajet>80) and (Aliens[u].Trajet<140) then
@@ -1709,9 +1709,9 @@ BEGIN
                  END
               Else BEGIN Inc(Aliens[u].Ay,Aliens[u].Spd);Inc(Aliens[u].trajet,Aliens[u].Spd); END;
             END;
-        { Depla 3 :   ≥
+        { Depla 3 :   ‚îÇ
                      /
-                    ≥    }
+                    ‚îÇ    }
         3 : BEGIN
               If Aliens[u].ay>220 then Aliens[u].Typ:=0;
               IF (Aliens[u].Trajet>80) and (Aliens[u].Trajet<140) then
@@ -1722,7 +1722,7 @@ BEGIN
               Else BEGIN Inc(Aliens[u].Ay,Aliens[u].Spd);Inc(Aliens[u].trajet,Aliens[u].Spd); END;
             END;
 
-         { Depla 4 :    ≥
+         { Depla 4 :    ‚îÇ
                          \
                         /  }
         4 : BEGIN
@@ -1739,7 +1739,7 @@ BEGIN
                  END
               Else BEGIN Inc(Aliens[u].Ay,Aliens[u].Spd);Inc(Aliens[u].trajet,Aliens[u].Spd); END;
             END;
-        { Depla 5 :    ≥
+        { Depla 5 :    ‚îÇ
                       /
                        \   }
         5 : BEGIN
@@ -1763,9 +1763,9 @@ BEGIN
         { Depla 7 : / }
         7 : BEGIN Inc(Aliens[u].ay,Aliens[u].Spd);If Aliens[u].ay>220 then Aliens[u].Typ:=0;
             Dec(Aliens[u].Ax,Aliens[u].Spd);Inc(Aliens[u].trajet,Aliens[u].Spd); END;
-        { Depla 8 :    ≥
-                     ≥\≥
-                     ≥            }
+        { Depla 8 :    ‚îÇ
+                     ‚îÇ\‚îÇ
+                     ‚îÇ            }
         8 : BEGIN If (Aliens[u].Ay<70) and (Aliens[u].Plus=0) then
                   BEGIN Inc(Aliens[u].Ay,Aliens[u].Spd);Inc(Aliens[u].Trajet,Aliens[u].Spd); END
                   Else If Aliens[u].Plus=2 then BEGIN Inc(Aliens[u].Ay,Aliens[u].Spd);Inc(Aliens[u].Trajet,Aliens[u].Spd); END
@@ -1773,7 +1773,7 @@ BEGIN
                     Dec(Aliens[u].Ax,Aliens[u].Spd);Aliens[u].Plus:=1; END;
                   If (ALiens[u].Ay<=10) and (Aliens[u].Plus=1) then Aliens[u].Plus:=2;
             END;
-        { Depla 9 : ≥
+        { Depla 9 : ‚îÇ
                      \
                        \  }
         9 : BEGIN
@@ -1785,7 +1785,7 @@ BEGIN
                  END
               Else BEGIN Inc(Aliens[u].Ay,Aliens[u].Spd);Inc(Aliens[u].trajet,Aliens[u].Spd); END;
             END;
-        { Depla 10 :   ≥
+        { Depla 10 :   ‚îÇ
                      /
                    /     }
         10 : BEGIN
@@ -1797,9 +1797,9 @@ BEGIN
                  END
               Else BEGIN Inc(Aliens[u].Ay,Aliens[u].Spd);Inc(Aliens[u].trajet,Aliens[u].Spd); END;
             END;
-        { Depla 11:  ≥
-                     ≥/≥
-                       ≥          }
+        { Depla 11:  ‚îÇ
+                     ‚îÇ/‚îÇ
+                       ‚îÇ          }
         11 : BEGIN If (Aliens[u].Ay<70) and (Aliens[u].Plus=0) then
                   BEGIN Inc(Aliens[u].Ay,Aliens[u].Spd);Inc(Aliens[u].Trajet,Aliens[u].Spd); END
                   Else If Aliens[u].Plus=2 then BEGIN Inc(Aliens[u].Ay,Aliens[u].Spd);Inc(Aliens[u].Trajet,Aliens[u].Spd); END
@@ -1809,7 +1809,7 @@ BEGIN
                   If Aliens[u].ay>220 then Aliens[u].Typ:=0;
             END;
 
-        { Depla 99 : TÇlÇcomandÇ  }
+        { Depla 99 : T√©l√©comand√©  }
         99 : BEGIN
                IF Aliens[u].ay<0 then inc(Aliens[u].Ay,Aliens[u].Spd)
                Else TELELINE(Aliens[u].Ax,Aliens[u].Ay,Aliens[u].FinX,Aliens[u].FinY,Aliens[u].Spd);
@@ -1836,11 +1836,11 @@ BEGIN
                   5 : Begin Inc(Aliens[u].Ay,Aliens[u].Spd shr 1);Inc(Aliens[u].Ax,Aliens[u].Spd shr 1); END;
                   6 : Begin Inc(Aliens[u].Ay,Aliens[u].Spd shr 1);Dec(Aliens[u].Ax,Aliens[u].Spd shr 1); END;
                 End;
-                {Inc(Aliens[u].trajet,Aliens[u].Spd);}   { Trajet non utilisÇ ? }
+                {Inc(Aliens[u].trajet,Aliens[u].Spd);}   { Trajet non utilis√© ? }
                 If Aliens[u].ay>280 then Aliens[u].Typ:=0;
              END;
      END;
-     { RÇacteur + Ombre }
+     { R√©acteur + Ombre }
      If DX4 then
       Case Aliens[u].Typ OF
        1,2: BEGIN FeuAlien(Aliens[u].ax,Aliens[u].ay,35,21,13,18);ShadAl(Aliens[u].ax,Aliens[u].ay,0,0,34,26); END;
@@ -1886,10 +1886,10 @@ BEGIN
              Dec(Canon[u].TirX,Canon[u].Speed); end;
          4 : begin Inc(Canon[u].TirY,Canon[u].Speed);          { ALIEN     }
              Inc(Canon[u].TirX,Canon[u].Speed); end;
-         5 : TELELINE(Canon[u].TirX,Canon[u].TirY,Canon[u].FinX,Canon[u].FinY,Canon[u].Speed);   { Mis tÇlÇ  }
+         5 : TELELINE(Canon[u].TirX,Canon[u].TirY,Canon[u].FinX,Canon[u].FinY,Canon[u].Speed);   { Mis t√©l√©  }
        End;
 
-       { Test de dÇbordement }
+       { Test de d√©bordement }
        If (Canon[u].TirY<1) or (Canon[u].TirY>198)         { -2 ? }
        or (Canon[u].TirX<1) or (Canon[u].TirX>318)
         Then BEGIN Canon[u].Exist:=False; END;
@@ -1953,7 +1953,7 @@ BEGIN
 
            END;
 
-       { Vaisseau touchÇ }
+       { Vaisseau touch√© }
           IF (Canon[u].Typ<>1) and (CoulRead>=64) and (CoulRead<=92) then
             BEGIN
               Canon[u].Exist:=False;
@@ -1977,7 +1977,7 @@ BEGIN
        { Affichage }
        If Canon[u].Exist then
        Case Canon[u].Typ OF
-         1 : BEGIN  { HÇro     }
+         1 : BEGIN  { H√©ro     }
               Putpixel(Canon[u].TirX,Canon[u].TirY,254);
               Putpixel(Canon[u].TirX+Canon[u].plus,Canon[u].TirY+1,253);
              END;
@@ -2099,7 +2099,7 @@ BEGIN
     until v=50;
   End;
 
-  If NivEnd3 then    { Vaisseau dÇtruit }
+  If NivEnd3 then    { Vaisseau d√©truit }
   Begin
     u:=0;
     Inc(Lose);
@@ -2291,7 +2291,7 @@ For i:=1 to 20 do Get_XMS(i,64);
 New(Player1);New(Player2);
 New(Decors);New(Spr);
 ASM
- MOV Clef,010100101b  { DÇfinit la clef }
+ MOV Clef,010100101b  { D√©finit la clef }
 END;
 REPEAT
    AllFalse;

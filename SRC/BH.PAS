@@ -4,20 +4,20 @@ TYPE VirtualPtr=^Virtual;
      Virtual=ARRAY[0..63999] of BYTE;
 
 VAR Player  : ARRAY[1..2] of VirtualPtr;
-    Sp      : VirtualPtr;                { Pointeurs reprÇsentants des Çcrans virtuels }
-    Screen  : Virtual ABSOLUTE $A000:0;  { Pointe directement sur la mÇmoire vidÇo     }
+    Sp      : VirtualPtr;                { Pointeurs repr√©sentants des √©crans virtuels }
+    Screen  : Virtual ABSOLUTE $A000:0;  { Pointe directement sur la m√©moire vid√©o     }
     Palette : ARRAY[0..767] of BYTE;     { Palette de 256 couleurs : 3 composantes*256 => 768 }
     i,j     : INTEGER;
     Choix   : Byte;                      { 3 choix 1:Jeu 1 joueur , 2:Jeu 2 joueurs , 3:Options }
     f       : Text;
     Ch,Ch2  : CHAR;
     ExitFinal : BOOLEAN;                 { Sortie du jeu }
-    param1,param2 : String;              { Paramäres du jeu }
-    vga : boolean;                       { Paramätre vga  en mode 320*200 ds les options }
+    param1,param2 : String;              { Param√®res du jeu }
+    vga : boolean;                       { Param√®tre vga  en mode 320*200 ds les options }
     SpeedSync : Byte;                    { Vitesse du jeu ( en attendant le timer ) }
 
 PROCEDURE PutSprSt(x1,y1,x2,y2,x1des,y1des : WORD;Num : BYTE);
-{ Vieille "procÇdure" de sprites }
+{ Vieille "proc√©dure" de sprites }
 VAR NumLines : WORD;
     C1       : INTEGER;
 BEGIN
@@ -32,12 +32,12 @@ BEGIN
 END;
 
 PROCEDURE DECOMPACT(Ne:String;Num:Word);
-{ DÇcompacte les
-    - fichiers images compressÇs dont la taille est < 64000 octets
-    - fichiers images non compressÇs dont la taille = 64000 octets
+{ D√©compacte les
+    - fichiers images compress√©s dont la taille est < 64000 octets
+    - fichiers images non compress√©s dont la taille = 64000 octets
   Mode de compression :
     - 1 octet = nb de fois que la couleur suivante est
-     Ö inscrire Ö la suite
+     √† inscrire √† la suite
     - 1 octet = pour coder la couleur                      }
 VAR Nb : WORD;
     Color    : BYTE;
@@ -112,9 +112,9 @@ Var Touch : Byte;
 Begin
   Touch:=Port[$60];  { PORT[$60] est le port du clavier }
   CASE touch OF
-     72 : begin delay(100);If i<>1 then Dec(i) end;                 { Touche Fläche vers le haut }
-     80 : begin delay(100);If i<>3 then Inc(i) end;                 { Touche Fläche vers la bas  }
-     28 : Choix:=i;                            { Touche Enträe              }
+     72 : begin delay(100);If i<>1 then Dec(i) end;                 { Touche Fl√®che vers le haut }
+     80 : begin delay(100);If i<>3 then Inc(i) end;                 { Touche Fl√®che vers la bas  }
+     28 : Choix:=i;                            { Touche Entr√®e              }
      1  : BEGIN;ExitFinal:=True;Choix:=4; END; { Touche Escape              }
   END;
 End;
@@ -144,8 +144,8 @@ BEGIN
 END;
 
 BEGIN
-{ Enregistre les paramätres :
-   -vga : Çcran d'option en VGA  }
+{ Enregistre les param√®tres :
+   -vga : √©cran d'option en VGA  }
 Case paramCount of
  1 : Param1:=paramStr(1);
  2 : begin Param1:=paramStr(1);Param2:=paramStr(2); End;
@@ -161,14 +161,14 @@ For i:=1 to 2 do New(Player[i]);
 New(Sp);
 ExitFinal:=False;
 Assign(f,'Config.bh');
-Reset(f);Read(f,Ch);Close(f); { Charge de la config la rapiditÇ du jeu }
+Reset(f);Read(f,Ch);Close(f); { Charge de la config la rapidit√© du jeu }
 SpeedSync:=Ord(Ch);
 REPEAT
  Intro;
  Dispose(Sp);Dispose(Player[2]);Dispose(Player[1]);
  CASE Choix OF
-  1 : JEU_1_JOUEUR(SpeedSync);  { Shoot'em up Ö 1 joueur  + vitesse du jeu }
-  2 : JEU_2_JOUEURS(SpeedSync); { Shoot'em up Ö 2 joueurs + viteese du jeu }
+  1 : JEU_1_JOUEUR(SpeedSync);  { Shoot'em up √† 1 joueur  + vitesse du jeu }
+  2 : JEU_2_JOUEURS(SpeedSync); { Shoot'em up √† 2 joueurs + viteese du jeu }
   3 : Options_Depla(param1,param2); { Options du jeu          }
  END;
  New(Player[1]);New(Player[2]);New(Sp);
