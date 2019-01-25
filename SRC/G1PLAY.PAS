@@ -1,9 +1,7 @@
 {$G+}
 UNIT G1PLAY;
-{ Unité reprogrammée pour mettre ce jeu en freeware ansi que pour
-  participer à un concours , améliorations :
-     - codage de la palette pour ne pas qu'on choure les images
-   }
+{ Unité reprogrammée pour mettre ce jeu en freeware ansi que pour participer à un concours
+}
 INTERFACE
 USES DOS,CRT;
 
