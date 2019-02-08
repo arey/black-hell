@@ -1,12 +1,52 @@
-                          
-                          
-                          BLACK HELL
-                          ──────────
-           Writed by Antoine from Unlimited Satisfaction
+BLACK HELL
+==========
+Version 1.1  - Copyright (C) 1995 Antoine Rey
 
 
 
-Black Hell version 1.1  - Copyright (C) 1995 Antoine Rey
+Presentation
+------------
+
+Black Hell is a 1995 vertical scrolling shooter video game, developped in Turbo Pascal and x86 assembleur.
+
+This Git repository contains :
+ - [BIN](BIN): binary and image resources. The place to launch the game: BH.EXE
+ - [SRC](SRC): the Turbo Pascal source files. Borland Turbo Pascal uses ASCII CP437 encoding. 
+ In order to preserve readability, the source files in this repository were converted to UTF-8 encoding.
+ To compile them, you may need to convert them back to CP866 (thanks to [Web Utils](http://www.webutils.pl/Charset-Converter)).
+ - [IMG](IMG): some readable images: sprites, artworks, screenshots
+ 
+ 
+![Black Hell main menu](IMG/BH01.png?raw=true)
+
+
+Installation
+-------------
+
+- Install [DOSBox](https://www.dosbox.com/), the x86 emulator with Microsoft DOS.
+- Execute the following command lines:
+```
+git clone https://github.com/arey/black-hell.git /tmp/black-hell
+// Open the DOSBox command line interface 
+// For french people, you may switch to the azerty keyboard
+keyb fr
+mount c: /tmp/black-hell/bin
+c:
+BH.EXE
+```
+
+For 2 players mode, use Ctrl+F12 to increase CPU speed to 7500 cycles.
+
+
+Screenshots
+-----------
+
+![Solo player mode](IMG/SCREENSHOT1P.png?raw=true)
+
+![2 players mode](IMG/SCREENSHOT2P.png?raw=true)
+
+Fench original presentation
+---------------------------
 
 Ce progamme est un FREEWARE et est en libre utilisation.
 N' hesitez pas à le difuser en le donnant à des amis, le téléchargant sur des BBS, l'envoyant à des revues spécialisées , ... 
@@ -47,7 +87,7 @@ Il faut se mettre dans la tête que tous les jeux en 3D mappée ne sont pas tous
 eux sans effets spéciaux sur lesquels  on passe bien plus de temps 
 (comparer Phantasmagoria : 2 heures vs Dune 2 : + de 200 heures sans se lasser). Enfin chacun ses goûts. 
 
-Veuillez m'escuser de ne pas avoir fini les différentes options du menu.
+Veuillez m'escuser de ne pas avoir fini les différente s options du menu.
 Peut-être y seront-ils dans une prochaine version. Cette version de ce jeu ne possède pas la gestion du timer qui lui 
 permettrait d'aller à la même vitesse sur tous les PC. En attendant vous pourrez sélectioner avec l'installation la
 vitesse de jeu convanable pour votre ordinateur allant de :
@@ -71,10 +111,11 @@ Configuration nécessaire :
 -  486 SX 25 < CPU nécessaire < 486 DX2 66 
 -  bonne carte vidéo (VLB ou PCI)
 -  2 Mo RAM (XMS)
--  Carte Vesa (sinon, lancer BH -VGA)
+-  Carte Vesa
+
 
 Problèmes :
-- Si vous avez un problème lors du menu "Options" , essayer de lancer un driver pour votre carte vidéo ou lancer le jeu "BH -VGA" 
+- Si vous avez un problème lors du menu "Options" en SVGA, essayer de lancer un driver pour votre carte vidéo ou lancer le jeu "BH -VGA" 
 - Si vous vous ennuyez lorsque vous jouez, faites un "del.", votre problème sera résolu aussi vite que possible.
 
 Je remecie 
@@ -84,12 +125,9 @@ entrain de lire ce fichier.
 - Nicolas alias CPC6128 pour ses inlassables discussions délirantes.
 - Et tous ceux qui me connaissent et m'apprécient.
 
-                             A bientôt !
+A bientôt !
 
-                                     Antoine
-
-P.S. : la vie continue
-
+Antoine
 
 
 Mes jeux préférés :
