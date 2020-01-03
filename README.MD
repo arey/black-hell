@@ -7,7 +7,7 @@ Version 1.1  - Copyright (C) 1995 Antoine Rey
 Presentation
 ------------
 
-Black Hell is a 1995 vertical scrolling shooter video game, developped in Turbo Pascal and x86 assembleur.
+Black Hell is a 1995 vertical scrolling shooter video game, developed in Turbo Pascal and x86 assembly language.
 
 This Git repository contains :
  - [BIN](BIN): binary and image resources. The place to launch the game: BH.EXE
